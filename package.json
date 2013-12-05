@@ -1,5 +1,5 @@
 {
-  "name": "phuket meetup website",
+  "name": "phuket_meetup_website",
   "version": "0.0.1",
   "scripts": {
     "start": "node app.js"
@@ -15,6 +15,6 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-coffee": "*",
     "grunt-contrib-stylus": "*",
-    "grunt-contrib-connect": "~0.1.2",
+    "grunt-contrib-connect": "~0.1.2"
   }
 }
