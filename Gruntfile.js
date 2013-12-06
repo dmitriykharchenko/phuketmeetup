@@ -7,14 +7,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-stylus');
-  grunt.loadNpmTasks('grunt-contrib-csslint');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-ngmin');
-
-  grunt.loadNpmTasks('grunt-karma');
-
-  grunt.loadTasks('./grunt_tasks/');
-
 
   assets = {
     css: {
@@ -24,7 +16,10 @@ module.exports = function(grunt) {
       path: "assets/javascripts/"
     },
     images: {
-      path: "assets/imagesmages/"
+      path: "assets/images/"
+    },
+    fonts: {
+      path: "assets/fonts/"
     }
   };
 
@@ -32,16 +27,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    connect: {
-      options: {
-        port: 4000
-      },
-      server: {
-        options: {
-          keepalive: false
-        }
-      }
-    },
 
     clean: {
       tmp: ['tmp'],
@@ -67,14 +52,26 @@ module.exports = function(grunt) {
       fonts: {
         expand: true,
         src: '**',
-        dest: 'public/font/',
-        cwd: "assets/font/"
+        dest: 'public/fonts/',
+        cwd: assets.fonts.path
+      },
+      flat_ui_fonts: {
+        expand: true,
+        src: '**',
+        dest: 'public/fonts',
+        cwd: "assets/components/Flat-UI/fonts"
+      },
+      fontawesome_fonts: {
+        expand: true,
+        src: '**',
+        dest: 'public/fonts',
+        cwd: "assets/components/font-awesome/fonts/"
       },
       images: {
         expand: true,
         src: '**',
         dest: 'public/images/',
-        cwd: "assets/images/"
+        cwd: assets.images.path
       }
     },
 
@@ -94,6 +91,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     coffee: {
       compile: {
         expand: true,
@@ -124,41 +122,21 @@ module.exports = function(grunt) {
         },
         files: {
           'public/javascripts/app.js': [
-            "tmp/javascripts/template_cache.js",
-            "tmp/javascripts/modules.js",
-            "tmp/javascripts/imagesnit.js",
-            "tmp/javascripts/controllers/**/**.js",
-            "tmp/javascripts/services/**/**.js",
-            "tmp/javascripts/directives/**/**.js",
-            "tmp/javascripts/models/**/**.js",
-            "tmp/javascripts/filters/**/**.js"
+            "tmp/javascripts/**/**.js"
           ],
           'public/javascripts/lib.js': [
-            "assets/lib/jquery.js",
-            "assets/lib/angular/angular.js",
             "assets/lib/**/**.js"
-          ],
-          'public/javascripts/advertisment.js': ['tmp/javascripts/advertisment.js']
-        }
-      },
-
-      javascripts_dev: {
-        files: {
-          'public/javascripts/app.js': [
-            "env/dev/dev-modules.js",
-            "public/javascripts/app.js",
-            "env/dev/dev-app.js"
           ]
         }
       },
 
+
       stylesheets: {
         files: {
-          'public/stylesheets/app.css': [
-            "tmp/stylesheets/bootstrap.css",
-            "tmp/stylesheets/bootstrap-responsive.css",
-            "tmp/stylesheets/base.css",
-            "tmp/stylesheets/markup.css",
+          'public/stylesheets/style.css': [
+            "assets/components/Flat-UI/bootstrap/bootstrap.css",
+            "assets/components/Flat-UI/css/flat-ui.css",
+            "assets/components/font-awesome/font-awesome.css",
             "tmp/stylesheets/**/**.css"
           ]
         }
@@ -175,13 +153,6 @@ module.exports = function(grunt) {
       fonts: {
         files: ['assets/font/**/**'],
         tasks: ['compile_fonts'],
-        options: {
-          atBegin: true
-        }
-      },
-      views: {
-        files: [ assets.views.path + '**/**.html'],
-        tasks: ['compile_javascripts'],
         options: {
           atBegin: true
         }
@@ -232,30 +203,11 @@ module.exports = function(grunt) {
   grunt.event.on('watch', function(action, filepath, target) {
     grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
   });
-  grunt.registerTask('build_template_cache', ['angular_template_cache']);
 
-
-  grunt.registerTask('test:e2e', ['connect:testserver', 'karma:e2e']);
-  grunt.registerTask('test', ['karma:unit', 'test:e2e']);
-
-
-
-  grunt.registerTask('build_template_cache', ['angular_template_cache']);
-  grunt.registerTask('compile_javascripts', ['clean:javascripts', 'build_template_cache', 'coffee', 'copy:scripts', 'concat:javascripts']);
-
-  grunt.registerTask('compile_javascripts_dev', ['compile_javascripts', 'concat:javascripts_dev']);
-
+  grunt.registerTask('compile_javascripts', ['clean:javascripts', 'coffee', 'copy:scripts', 'concat:javascripts']);
   grunt.registerTask('compile_styles', ['clean:stylesheets', 'stylus', 'copy:styles', 'concat:stylesheets']);
   grunt.registerTask('compile_images', ['clean:images', 'copy:images']);
-  grunt.registerTask('compile_fonts', ['clean:fonts', 'copy:fonts'])
+  grunt.registerTask('compile_fonts', ['clean:fonts', 'copy:fonts', 'copy:flat_ui_fonts', 'copy:fontawesome_fonts']);
   grunt.registerTask('compile', ['compile_javascripts', 'compile_styles']);
-  grunt.registerTask('compress', ['compile', 'ngmin', 'uglify']);
-
-  grunt.registerTask('build', ['compress', 'compile_images', 'compile_fonts']);
-
-  grunt.registerTask('unit:auto', ['compile', 'karma:unit_auto']);
-
-  grunt.registerTask('test:e2e', ['build', 'connect:server', 'karma:e2e']);
-  grunt.registerTask('test:e2e_auto', ['connect:server', 'karma:e2e_auto']);
-  grunt.registerTask('test', ['karma:unit', 'test:e2e']);
+  grunt.registerTask('build', ['compile', 'uglify', 'compile_images', 'compile_fonts']);
 };
