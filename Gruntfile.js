@@ -134,7 +134,7 @@ module.exports = function(grunt) {
       stylesheets: {
         files: {
           'public/stylesheets/style.css': [
-            "assets/components/Flat-UI/bootstrap/bootstrap.css",
+            "assets/components/Flat-UI/bootstrap/css/bootstrap.css",
             "assets/components/Flat-UI/css/flat-ui.css",
             "assets/components/font-awesome/font-awesome.css",
             "tmp/stylesheets/**/**.css"

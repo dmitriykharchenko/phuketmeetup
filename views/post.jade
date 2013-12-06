@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  div.post
+    span.date #{post.date.getMonth()+1}.#{post.date.getDate()}.#{post.date.getFullYear()}
+    h1.title
+      a(href=post.url)
+        = post.title
+    div.post.content
+      != post.content
+    div.tags
+      - each tag in post.tags
+        a.text-muted(href=tagUrl(tag))
+          span #{tag}
+    .share(data-url='http://akimoto.ru' + post.url, data-text=post.description, data-title='share this page')
+
+  #disqus_thread
+
+  script
+    window.disqus_shortname = 'akimotoru';
+    window.disqus_identifier = '!{post.slug}';
+    window.disqus_title = '!{post.title}';
+    window.disqus_url = 'http://akimoto.ru!{post.url}';
+
+  noscript Please enable JavaScript to view comments
+

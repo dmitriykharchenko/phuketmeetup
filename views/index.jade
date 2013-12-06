@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1 Phuket IT meetups
-  p Welcome to #{title}
+  div.header
+    h1.text-center Phuket IT meetups
+    p.text-center.lead Every week, different place, new ideas.
+
+  div.content
+    div.map
+
+    div.blog
+      - var posts = getPosts(0,5)
+      - var page  = 1
+      - each post in posts
+        include includes/postSnippet
