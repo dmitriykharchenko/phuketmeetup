@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "font-awesome": "*",
-    "Flat-UI": "*"
+    "Flat-UI": "*",
+    "angular": "1.2.4",
+    "angular-google-maps": "1.0.2"
   }
 }

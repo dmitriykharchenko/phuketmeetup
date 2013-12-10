@@ -30,23 +30,23 @@ module.exports = function(grunt) {
 
     clean: {
       tmp: ['tmp'],
-      fonts: ['public/font', 'tmp/font'],
-      javascripts: ['public/javascripts', 'tmp/javascripts'],
-      images: ['public/images', 'tmp/images'],
-      stylesheets: ['public/stylesheets', 'tmp/stylesheets']
+      fonts: ['public/font', '_tmp/font'],
+      javascripts: ['public/javascripts', '_tmp/javascripts'],
+      images: ['public/images', '_tmp/images'],
+      stylesheets: ['public/stylesheets', '_tmp/stylesheets']
     },
 
     copy: {
       styles: {
         expand: true,
         src: '**/**.css',
-        dest: 'tmp/stylesheets/',
+        dest: '_tmp/stylesheets/',
         cwd: assets.css.path
       },
       scripts: {
         expand: true,
         src: '**/**.js',
-        dest: 'tmp/javascripts/',
+        dest: '_tmp/javascripts/',
         cwd: assets.js.path
       },
       fonts: {
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
         flatten: false,
         cwd: assets.js.path,
         src: ['**/**.coffee'],
-        dest: 'tmp/javascripts/',
+        dest: '_tmp/javascripts/',
         ext: '.js'
       }
     },
@@ -110,7 +110,7 @@ module.exports = function(grunt) {
         flatten: false,
         cwd: assets.css.path,
         src: ['**/**.styl'],
-        dest: 'tmp/stylesheets/',
+        dest: '_tmp/stylesheets/',
         ext: '.css'
       }
     },
@@ -122,10 +122,11 @@ module.exports = function(grunt) {
         },
         files: {
           'public/javascripts/app.js': [
-            "tmp/javascripts/**/**.js"
+            "_tmp/javascripts/**/**.js"
           ],
           'public/javascripts/lib.js': [
-            "assets/lib/**/**.js"
+            "assets/components/angular/angular.js",
+            "assets/components/angular-google-maps/dist/angular-google-maps.js"
           ]
         }
       },
@@ -137,7 +138,7 @@ module.exports = function(grunt) {
             "assets/components/Flat-UI/bootstrap/css/bootstrap.css",
             "assets/components/Flat-UI/css/flat-ui.css",
             "assets/components/font-awesome/font-awesome.css",
-            "tmp/stylesheets/**/**.css"
+            "_tmp/stylesheets/**/**.css"
           ]
         }
       }
