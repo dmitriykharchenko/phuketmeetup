@@ -1,14 +1,30 @@
 div.header {
-  background-color: #fff;
+  z-index: 100;
   color: #34495E;
   top: 0px;
   padding: 20px;
   width: 100%;
+  position: absolute;
 }
 
 div.content {
   color: #34495E;
   .blog {
     padding: 0px 80px;
+  }
+}
+
+div.map_container {
+  height: 500px;
+  width: 100%;
+  position: absolute;
+  div.google-map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .angular-google-map-container {
+    width: 100%;
+    height: 600px;
   }
 }

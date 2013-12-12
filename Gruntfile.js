@@ -167,7 +167,7 @@ module.exports = function(grunt) {
       },
       scripts: {
         files: [ assets.js.path + '**/**.js', assets.js.path + '**/**.coffee', 'test/**/**.js'],
-        tasks: ['compile_javascripts_dev'],
+        tasks: ['compile_javascripts'],
         options: {
           atBegin: true
         }

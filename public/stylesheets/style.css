@@ -10593,6 +10593,9 @@ footer p {
   margin-left: 20px;
 }
 
-div.header{background-color:#fff;color:#34495e;top:0;padding:20px;width:100%}
+div.header{z-index:100;color:#34495e;top:0;padding:20px;width:100%;position:absolute}
 div.content{color:#34495e;}
 div.content .blog{padding:0 80px}
+div.map_container{height:500px;width:100%;position:absolute;}
+div.map_container div.google-map{position:absolute;width:100%;height:100%}
+div.map_container .angular-google-map-container{width:100%;height:600px}

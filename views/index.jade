@@ -6,7 +6,12 @@ block content
     p.text-center.lead Every week, different place, new ideas.
 
   div.content
-    div.map
+
+    div.map_container(ng-controller="map_controller")
+      div.google-map.affix(
+        center="map.center",
+        zoom="map.zoom",
+        draggable="true")
       
     div.blog
       - var posts = getPosts(0,5)
