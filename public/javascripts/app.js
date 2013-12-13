@@ -13,6 +13,7 @@
           longitude: -73
         },
         options: {
+          scrollwheel: false,
           streetViewControl: false,
           panControl: false
         },
@@ -38,6 +39,24 @@
             title: 'Plane'
           }
         ],
+        events: {
+          click: function(mapModel, eventName, originalEventArgs) {
+            var e;
+            $log.log("user defined event: " + eventName, mapModel, originalEventArgs);
+            e = originalEventArgs[0];
+            if (!$scope.map.clickedMarker) {
+              $scope.map.clickedMarker = {
+                title: 'You clicked here',
+                latitude: e.latLng.lat(),
+                longitude: e.latLng.lng()
+              };
+            } else {
+              $scope.map.clickedMarker.latitude = e.latLng.lat();
+              $scope.map.clickedMarker.longitude = e.latLng.lng();
+            }
+            return $scope.$apply();
+          }
+        },
         dynamicMarkers: [],
         randomMarkers: [],
         doClusterRandomMarkers: true

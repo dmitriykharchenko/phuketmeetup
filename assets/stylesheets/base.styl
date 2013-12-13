@@ -1,13 +1,24 @@
 div.header {
-  z-index: 100;
   color: #34495E;
   top: 0px;
-  padding: 20px;
   width: 100%;
   position: absolute;
+  h1, p {
+    position: absolute;
+    width: 520px;
+    margin-left: 50%;
+    left: -260px;
+  }
+
+  p {
+    top: 90px;
+  }
 }
 
 div.content {
+  z-index: 100;
+  width: 100%;
+  position: relative;
   color: #34495E;
   .blog {
     padding: 0px 80px;
@@ -15,9 +26,9 @@ div.content {
 }
 
 div.map_container {
-  height: 500px;
+  height: 200px;
   width: 100%;
-  position: absolute;
+  position: relative;
   div.google-map {
     position: absolute;
     width: 100%;
@@ -25,6 +36,6 @@ div.map_container {
   }
   .angular-google-map-container {
     width: 100%;
-    height: 600px;
+    height: 200px;
   }
 }

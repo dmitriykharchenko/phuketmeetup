@@ -1,18 +1,18 @@
 extends layout
 
 block content
+  div.map_container(ng-controller="map_controller")
+    div.google-map.affix(
+      center="map.center",
+      zoom="map.zoom",
+      options="map.options"
+      draggable="true")
+
   div.header
     h1.text-center Phuket IT meetups
     p.text-center.lead Every week, different place, new ideas.
 
   div.content
-
-    div.map_container(ng-controller="map_controller")
-      div.google-map.affix(
-        center="map.center",
-        zoom="map.zoom",
-        draggable="true")
-      
     div.blog
       - var posts = getPosts(0,5)
       - var page  = 1

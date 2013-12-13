@@ -9,6 +9,7 @@ angular.module('app').controller "map_controller",  ($scope) ->
         longitude: -73
 
       options:
+        scrollwheel: false
         streetViewControl: false
         panControl: false
 
@@ -37,7 +38,26 @@ angular.module('app').controller "map_controller",  ($scope) ->
           title: 'Plane'
         }
       ]
-      
+
+      events:
+        click: (mapModel, eventName, originalEventArgs)  ->
+          # 'this' is the directive's scope
+          $log.log "user defined event: " + eventName, mapModel, originalEventArgs
+
+          e = originalEventArgs[0]
+
+          if not $scope.map.clickedMarker
+            $scope.map.clickedMarker =
+              title: 'You clicked here'
+              latitude: e.latLng.lat()
+              longitude: e.latLng.lng()
+  
+          else
+            $scope.map.clickedMarker.latitude = e.latLng.lat()
+            $scope.map.clickedMarker.longitude = e.latLng.lng()
+
+          $scope.$apply()
+
       dynamicMarkers: []
       randomMarkers: []
       doClusterRandomMarkers: true
