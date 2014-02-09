@@ -211,4 +211,6 @@ module.exports = function(grunt) {
   grunt.registerTask('compile_fonts', ['clean:fonts', 'copy:fonts', 'copy:flat_ui_fonts', 'copy:fontawesome_fonts']);
   grunt.registerTask('compile', ['compile_javascripts', 'compile_styles']);
   grunt.registerTask('build', ['compile', 'uglify', 'compile_images', 'compile_fonts']);
+
+  grunt.registerTask('heroku:production', ['build']);
 };
